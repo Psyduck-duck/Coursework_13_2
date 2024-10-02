@@ -6,6 +6,7 @@ import pandas as pd
 import requests
 from dotenv import load_dotenv
 
+
 from data.__init__ import PATH_TO_DATA_DIRECTORY
 
 load_dotenv()
@@ -87,7 +88,7 @@ def sort_df_by_date(df, stop_date):
 
 
 def get_card_info(df, stop_date: datetime) -> list[dict]:
-    """Возвращает информацию по каждой карте"""
+    """Возвращает информацию по каждой карте от 1 числа месяца до указанной даты"""
 
     sorted_df = sort_df_by_date(df, stop_date)
     cards_info = []
@@ -106,6 +107,29 @@ def get_card_info(df, stop_date: datetime) -> list[dict]:
     return cards_info
 
 
+def get_top_five(df, stop_date):
+    """Возвращает топ 5 оперций от 1 числа месяца до указанной даты"""
+
+    sorted_data = sort_df_by_date(df, stop_date)
+
+    sorted_data["Сумма платежа"] = sorted_data["Сумма платежа"].astype(float)
+    sorted_data = sorted_data.sort_values("Сумма платежа", key=lambda x: abs(x), ascending=False)
+    top_five_list = []
+    count = 0
+    for index, row in sorted_data.iterrows():
+        top_five_list.append({
+  "date": row["Дата операции"].strftime("%d-%m-%Y %H:%M:%S"),
+  "amount": row["Сумма платежа"],
+  "category": row["Категория"],
+  "description": row["Описание"]
+})
+
+    top_five_list = top_five_list[0:5]
+
+    return top_five_list
+
+
+
 
 
 
@@ -116,4 +140,6 @@ df = get_operations_data("../data/operations.xlsx")
 
 date_obj = datetime.datetime(2020, 1, 12)
 
-print(get_card_info(df, date_obj))
+#print(get_card_info(df, date_obj))
+
+print(get_top_five(df, date_obj))

@@ -6,6 +6,7 @@ import pandas as pd
 import requests
 from dotenv import load_dotenv
 
+pd.options.mode.chained_assignment = None
 
 from data.__init__ import PATH_TO_DATA_DIRECTORY
 

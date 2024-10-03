@@ -14,6 +14,9 @@ load_dotenv()
 API_KEY_alphavantage = os.getenv("API_KEY_alphavantage")
 apilayer_API_KEY = os.getenv("apilayer_API_KEY")
 
+relative_path_user_setting = "../user_settings.json"
+absolute_path_user_settings = os.path.abspath(relative_path_user_setting)
+
 
 def get_alphavantage_data(filename: str) -> None:
     """Записывает в файл json в дирректтории data информацию об интересующих акциях"""
@@ -21,7 +24,7 @@ def get_alphavantage_data(filename: str) -> None:
     path_to_file = os.path.join(PATH_TO_DATA_DIRECTORY, filename)
     stocks_dict = {}
 
-    with open("../user_settings.json") as file:
+    with open(absolute_path_user_settings) as file:
         data = json.load(file)
         user_stocks = data.get("user_stocks")
         user_currencies = data.get("user_currencies")
@@ -65,8 +68,10 @@ def get_greeting(date: datetime) -> str:
         return "Доброй ночи"
 
 
-def get_operations_data(path_to_file: str):
-    """Возвращает датафрейм с данными"""
+def get_operations_data(filename: str) -> pd.DataFrame:
+    """Возвращает датафрейм с данными из директории data"""
+
+    path_to_file = os.path.join(PATH_TO_DATA_DIRECTORY, filename)
 
     try:
         df = pd.read_excel(path_to_file)
@@ -74,7 +79,8 @@ def get_operations_data(path_to_file: str):
         raise Exception("file not found")
     return df
 
-def sort_df_by_date(df, stop_date):
+
+def sort_df_by_date(df, stop_date: datetime) -> pd.DataFrame:
     """Принимает датафрейм и дату окончания анализа, возвращает датафрейм с датами в диапозоне даты окончания
     и первым числом месяца"""
 
@@ -108,7 +114,7 @@ def get_card_info(df, stop_date: datetime) -> list[dict]:
     return cards_info
 
 
-def get_top_five(df, stop_date):
+def get_top_five(df, stop_date) -> list[dict]:
     """Возвращает топ 5 оперций от 1 числа месяца до указанной даты"""
 
     sorted_data = sort_df_by_date(df, stop_date)
@@ -128,19 +134,3 @@ def get_top_five(df, stop_date):
     top_five_list = top_five_list[0:5]
 
     return top_five_list
-
-
-
-
-
-
-#######################################################################################################
-
-
-df = get_operations_data("../data/operations.xlsx")
-
-date_obj = datetime.datetime(2020, 1, 12)
-
-#print(get_card_info(df, date_obj))
-
-print(get_top_five(df, date_obj))

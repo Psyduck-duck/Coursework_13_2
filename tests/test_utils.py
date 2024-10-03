@@ -3,7 +3,7 @@ import datetime
 from unittest.mock import patch
 import pandas as pd
 
-from src.utils import get_greeting, get_operations_data, sort_df_by_date, get_card_info, get_top_five
+from src.utils import get_greeting, get_operations_data, sort_df_by_date, get_card_info, get_top_five, get_alphavantage_data
 
 
 @pytest.fixture
@@ -27,7 +27,7 @@ def some_data():
         "Сумма операции с округлением": 160.89
     },
     {
-        "Дата операции": "31.12.2021 01:23:42",
+        "Дата операции": "12.09.2021 01:23:42",
         "Дата платежа": "31.12.2021",
         "Номер карты": "*5091",
         "Статус": "OK",
@@ -101,3 +101,36 @@ def test_sort_df_by_date(some_data):
         "Округление на инвесткопилку": 0,
         "Сумма операции с округлением": 5046.0
     }]
+
+
+def test_get_card_info(some_data):
+    df = pd.DataFrame(some_data)
+    date_obj = datetime.datetime(2021, 9, 15, 0, 0, 0)
+    assert get_card_info(df, date_obj) == [{
+        "last_digits": "5091",
+        "total_spent": 564.0,
+        "cashback": 5.64
+    }]
+
+
+def test_get_card_info_no_operations(some_data):
+    df = pd.DataFrame(some_data)
+    date_obj = datetime.datetime(2024, 9, 15, 0, 0, 0)
+    assert get_card_info(df, date_obj) == []
+
+
+def test_get_top_five(some_data):
+    df = pd.DataFrame(some_data)
+    date_obj = datetime.datetime(2021, 9, 15, 0, 0, 0)
+    assert get_top_five(df, date_obj) == [{
+        "date": "12-09-2021 01:23:42",
+        "amount": -564.0,
+        "category": "Различные товары",
+        "description": "Ozon.ru"
+    }]
+
+
+def test_get_top_five_no_operations(some_data):
+    df = pd.DataFrame(some_data)
+    date_obj = datetime.datetime(2024, 9, 15, 0, 0, 0)
+    assert get_top_five(df, date_obj) == []

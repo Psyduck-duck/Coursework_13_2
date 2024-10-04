@@ -107,11 +107,13 @@ def get_card_info(df, stop_date: datetime) -> list[dict]:
         card_mask = card[-4:]
         spending_operations = sorted_df.loc[(sorted_df["Номер карты"] == card) & (sorted_df["Сумма платежа"] < 0)]
         total_spending = spending_operations["Сумма платежа"].sum()
-        cards_info.append({
-      "last_digits": card_mask,
-      "total_spent": round(float(total_spending), 2) * -1,
-      "cashback": round((float(total_spending) / 100), 2) * -1
-    })
+        cards_info.append(
+            {
+                "last_digits": card_mask,
+                "total_spent": round(float(total_spending), 2) * -1,
+                "cashback": round((float(total_spending) / 100), 2) * -1,
+            }
+        )
 
     return cards_info
 
@@ -126,12 +128,14 @@ def get_top_five(df, stop_date) -> list[dict]:
     top_five_list = []
     count = 0
     for index, row in sorted_data.iterrows():
-        top_five_list.append({
-  "date": row["Дата операции"].strftime("%d-%m-%Y %H:%M:%S"),
-  "amount": row["Сумма платежа"],
-  "category": row["Категория"],
-  "description": row["Описание"]
-})
+        top_five_list.append(
+            {
+                "date": row["Дата операции"].strftime("%d-%m-%Y %H:%M:%S"),
+                "amount": row["Сумма платежа"],
+                "category": row["Категория"],
+                "description": row["Описание"],
+            }
+        )
 
     top_five_list = top_five_list[0:5]
 

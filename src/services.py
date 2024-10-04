@@ -1,9 +1,11 @@
-import json
 import datetime
+import json
 import logging
+
 import pandas as pd
 
 from src.utils import get_operations_data, sort_df_by_date
+
 
 def get_cashbacks_by_groups(operations_data: pd.DataFrame, year: int, month: int) -> json:
     """Показывает cashback по каждой категории за указанный месяц"""
@@ -11,7 +13,7 @@ def get_cashbacks_by_groups(operations_data: pd.DataFrame, year: int, month: int
     year = date_obj.year
     month = date_obj.month
     if month != 12:
-        last_day_of_month = date_obj.replace(month=month+1) - datetime.timedelta(days=1)
+        last_day_of_month = date_obj.replace(month=month + 1) - datetime.timedelta(days=1)
     else:
         year += 1
         last_day_of_month = date_obj.replace(year=year, month=1) - datetime.timedelta(days=1)
@@ -23,7 +25,7 @@ def get_cashbacks_by_groups(operations_data: pd.DataFrame, year: int, month: int
     result = sorted_df.to_dict()
     result_json = json.dumps(result, indent=4, ensure_ascii=False)
 
-    return result
+    return result_json
 
 
-#print(get_cashbacks_by_groups(get_operations_data("operations.xlsx"), 2021, 12))
+# print(get_cashbacks_by_groups(get_operations_data("operations.xlsx"), 2021, 12))

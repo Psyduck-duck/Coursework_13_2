@@ -5,7 +5,7 @@ import pandas as pd
 
 from src.utils import get_operations_data, sort_df_by_date
 
-def upper_cashback(operations_data: pd.DataFrame, year: int, month: int) -> json:
+def get_cashbacks_by_groups(operations_data: pd.DataFrame, year: int, month: int) -> json:
     """Показывает cashback по каждой категории за указанный месяц"""
     date_obj = datetime.datetime(year, month, 1)
     year = date_obj.year
@@ -23,7 +23,7 @@ def upper_cashback(operations_data: pd.DataFrame, year: int, month: int) -> json
     result = sorted_df.to_dict()
     result_json = json.dumps(result, indent=4, ensure_ascii=False)
 
-    return result_json
+    return result
 
 
-#print(upper_cashback(get_operations_data("operations.xlsx"), 2021, 8))
+#print(get_cashbacks_by_groups(get_operations_data("operations.xlsx"), 2021, 12))

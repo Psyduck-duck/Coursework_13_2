@@ -84,8 +84,10 @@ def sort_df_by_date(df, stop_date: datetime) -> pd.DataFrame:
     """Принимает датафрейм и дату окончания анализа, возвращает датафрейм с датами в диапозоне даты окончания
     и первым числом месяца"""
 
+    day = stop_date.day
     month = stop_date.month
     year = stop_date.year
+    stop_date = datetime.datetime(year, month, day, 23, 59, 59)
     start_date = datetime.datetime(year, month, 1)
     sorted_df = df.loc[(df["Номер карты"].notnull()) & (df["Статус"] == "OK")]
     sorted_df["Дата операции"] = pd.to_datetime(sorted_df["Дата операции"], format="%d.%m.%Y %H:%M:%S")

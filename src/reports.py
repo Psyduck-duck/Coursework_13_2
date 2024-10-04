@@ -2,10 +2,13 @@ import json
 import pandas as pd
 import datetime
 from functools import wraps
+import re
+
+from src.utils import get_operations_data
 
 
 def log(filename=""):
-    """Декоратор регистрирует детали выполнения функций"""
+    """Декоратор регистрирует результат выполнения функций"""
 
     def wrapper(func):
         @wraps(func)
@@ -30,4 +33,28 @@ def log(filename=""):
     return wrapper
 
 
+def spending_by_category(df: pd.DataFrame, name_category: str, date: str = None) -> pd.DataFrame:
+    """фильтрует датафрейм по дате (последние три месяца от указанной даты) и совпадению в категории"""
 
+    if not date:
+        stop_date = datetime.datetime.now()
+    else:
+        stop_date = datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+    stop_month = stop_date.month
+    stop_year = stop_date.year
+    stop_day = stop_date.day
+    start_month = stop_month - 3
+    if start_month <= 0:
+        start_month = 12 - abs(start_month)
+    start_date = datetime.datetime(year=stop_year, month=start_month, day=stop_day)
+
+    sorted_df = df.loc[df["Статус"] == "OK"]
+    sorted_df["Дата операции"] = pd.to_datetime(sorted_df["Дата операции"], format="%d.%m.%Y %H:%M:%S")
+    sorted_df = sorted_df[(sorted_df["Дата операции"] >= start_date) & (sorted_df["Дата операции"] <= stop_date)]
+
+    #pattern = fr"{name_category}".lower()
+
+    sorted_df = sorted_df.loc[sorted_df["Категория"] == name_category]
+
+
+    return sorted_df

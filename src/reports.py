@@ -1,10 +1,8 @@
-import json
-import pandas as pd
 import datetime
+import json
 from functools import wraps
-import re
 
-from src.utils import get_operations_data
+import pandas as pd
 
 
 def log(filename=""):
@@ -52,9 +50,8 @@ def spending_by_category(df: pd.DataFrame, name_category: str, date: str = None)
     sorted_df["Дата операции"] = pd.to_datetime(sorted_df["Дата операции"], format="%d.%m.%Y %H:%M:%S")
     sorted_df = sorted_df[(sorted_df["Дата операции"] >= start_date) & (sorted_df["Дата операции"] <= stop_date)]
 
-    #pattern = fr"{name_category}".lower()
+    # pattern = fr"{name_category}".lower()
 
     sorted_df = sorted_df.loc[sorted_df["Категория"] == name_category]
-
 
     return sorted_df

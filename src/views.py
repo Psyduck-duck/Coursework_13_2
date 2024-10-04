@@ -23,7 +23,7 @@ def main_page(date):
     financial_file = "user_financial_info.json"
     greeting = get_greeting(date_obj)
 
-    #get_alphavantage_data(financial_file)
+    get_alphavantage_data(financial_file)
 
     result = {}
     result["greeting"] = greeting

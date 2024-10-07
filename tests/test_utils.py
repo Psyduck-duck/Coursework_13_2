@@ -91,7 +91,7 @@ def test_sort_df_by_date(some_data):
     date_obj_2 = datetime.datetime(2021, 12, 31, 0, 0, 0)
     assert sort_df_by_date(df, date_obj_1).to_dict(orient="records") == [
         {
-            "Дата операции": datetime.datetime(2021, 10, 10, 17, 50, 30),
+            "Дата операции": "2021-10-10 17:50:30",
             "Дата платежа": "30.12.2021",
             "Номер карты": "*4556",
             "Статус": "OK",
@@ -111,7 +111,7 @@ def test_sort_df_by_date(some_data):
 
     assert sort_df_by_date(df, date_obj_2).to_dict(orient="records") == [
         {
-            "Дата операции": datetime.datetime(2021, 12, 31, 16, 44, 0),  # "31.12.2021 16:44:00"
+            "Дата операции": "2021-12-31 16:44:00",
             "Дата платежа": "31.12.2021",
             "Номер карты": "*7197",
             "Статус": "OK",
@@ -146,7 +146,7 @@ def test_get_top_five(some_data):
     df = pd.DataFrame(some_data)
     date_obj = datetime.datetime(2021, 9, 15, 0, 0, 0)
     assert get_top_five(df, date_obj) == [
-        {"date": "12-09-2021 01:23:42", "amount": -564.0, "category": "Различные товары", "description": "Ozon.ru"}
+        {"date": "2021-09-12 01:23:42", "amount": -564.0, "category": "Различные товары", "description": "Ozon.ru"}
     ]
 
 

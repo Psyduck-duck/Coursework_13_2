@@ -92,6 +92,7 @@ def sort_df_by_date(df, stop_date: datetime) -> pd.DataFrame:
     sorted_df = df.loc[(df["Номер карты"].notnull()) & (df["Статус"] == "OK")]
     sorted_df["Дата операции"] = pd.to_datetime(sorted_df["Дата операции"], format="%d.%m.%Y %H:%M:%S")
     sorted_df = sorted_df[(sorted_df["Дата операции"] >= start_date) & (sorted_df["Дата операции"] <= stop_date)]
+    sorted_df["Дата операции"] = sorted_df["Дата операции"].astype(str)
 
     return sorted_df
 
@@ -130,7 +131,7 @@ def get_top_five(df, stop_date) -> list[dict]:
     for index, row in sorted_data.iterrows():
         top_five_list.append(
             {
-                "date": row["Дата операции"].strftime("%d-%m-%Y %H:%M:%S"),
+                "date": row["Дата операции"],
                 "amount": row["Сумма платежа"],
                 "category": row["Категория"],
                 "description": row["Описание"],

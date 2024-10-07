@@ -95,6 +95,6 @@ def spending_by_category(df: pd.DataFrame, name_category: str, date: str = None)
 
     sorted_df["Дата операции"] = sorted_df["Дата операции"].astype(str)
 
-    spending_by_category_loger.info("Колонка 'Дата операции' переведена в формат str")
+    spending_by_category_loger.info("Колонка 'Дата операции' переведена в формат str. Функция завершает работу")
 
     return sorted_df

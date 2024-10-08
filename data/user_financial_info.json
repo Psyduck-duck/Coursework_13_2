@@ -1,0 +1,74 @@
+{
+    "USD": "94.75 RUB",
+    "EUR": "104.53 RUB",
+    "AAPL": {
+        "Global Quote": {
+            "01. symbol": "AAPL",
+            "02. open": "225.1400",
+            "03. high": "226.8050",
+            "04. low": "223.3200",
+            "05. price": "225.6700",
+            "06. volume": "34044158",
+            "07. latest trading day": "2024-10-03",
+            "08. previous close": "226.7800",
+            "09. change": "-1.1100",
+            "10. change percent": "-0.4895%"
+        }
+    },
+    "AMZN": {
+        "Global Quote": {
+            "01. symbol": "AMZN",
+            "02. open": "183.0450",
+            "03. high": "183.4400",
+            "04. low": "180.8750",
+            "05. price": "181.9600",
+            "06. volume": "30204302",
+            "07. latest trading day": "2024-10-03",
+            "08. previous close": "184.7600",
+            "09. change": "-2.8000",
+            "10. change percent": "-1.5155%"
+        }
+    },
+    "GOOGL": {
+        "Global Quote": {
+            "01. symbol": "GOOGL",
+            "02. open": "164.4100",
+            "03. high": "166.6400",
+            "04. low": "163.9230",
+            "05. price": "165.8600",
+            "06. volume": "15073101",
+            "07. latest trading day": "2024-10-03",
+            "08. previous close": "165.8600",
+            "09. change": "0.0000",
+            "10. change percent": "0.0000%"
+        }
+    },
+    "MSFT": {
+        "Global Quote": {
+            "01. symbol": "MSFT",
+            "02. open": "417.6300",
+            "03. high": "419.5500",
+            "04. low": "414.2900",
+            "05. price": "416.5400",
+            "06. volume": "13686421",
+            "07. latest trading day": "2024-10-03",
+            "08. previous close": "417.1300",
+            "09. change": "-0.5900",
+            "10. change percent": "-0.1414%"
+        }
+    },
+    "TSLA": {
+        "Global Quote": {
+            "01. symbol": "TSLA",
+            "02. open": "244.4800",
+            "03. high": "249.7900",
+            "04. low": "237.8100",
+            "05. price": "240.6600",
+            "06. volume": "80074386",
+            "07. latest trading day": "2024-10-03",
+            "08. previous close": "249.0200",
+            "09. change": "-8.3600",
+            "10. change percent": "-3.3572%"
+        }
+    }
+}
